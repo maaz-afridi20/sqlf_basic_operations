@@ -21,6 +21,13 @@ class DatabaseHelper {
   static Database? _database;
 
   Future<Database?> get database async {
+    // so basically this will do that if the database with same name
+    // exist it will add the comming data in that database
+
+    // but if not then it will create the databse with that name.
+    //
+    //
+    // for doing this we have two logics both give below.
     _database ??= await initDB();
     return _database;
 
@@ -35,6 +42,11 @@ class DatabaseHelper {
     // }
   }
 
+  // so this method will be called when after above if else statement
+  // so in this it will return the onCreate method
+  // in which we have created a table with CREATE TABLE and putting
+  // all the variables which we have creted above.
+
   initDB() async {
     Directory directory = await getApplicationDocumentsDirectory();
     String path = join(directory.path, dbName);
@@ -42,6 +54,8 @@ class DatabaseHelper {
     return await openDatabase(path, onCreate: onCreate, version: dbVersion);
   }
 
+// this method will create a table with name which we will provide.
+// when we call this method.
   Future onCreate(Database db, int version) async {
     db.execute('''   
       CREATE TABLE $dbTable (
